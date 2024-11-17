@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Página completamente cargada. Iniciando verificaciones...");
 
+    // Verificar si el deseo ya fue enviado
+    if (localStorage.getItem("deseoEnviado")) {
+        document.body.innerHTML = ""; // Borra todo el contenido del cuerpo si el deseo ya fue enviado
+        return;
+    }
+
     // Inicializar EmailJS
     try {
         emailjs.init("UCDQQlPl8quzdQpn0"); // Public Key de EmailJS
@@ -64,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         emailjs.send("service_ipqoimi", "template_sqsm6z5", { wish })
             .then(function (response) {
                 console.log("Éxito", response.status, response.text);
-                localStorage.setItem("deseoEnviado", "true");
+                localStorage.setItem("deseoEnviado", "true"); // Guardar estado de deseo enviado
                 document.body.innerHTML = `
                     <div style="text-align:center; padding: 20px;">
                         <h1>🎉 ¡Deseo Enviado! 🎉</h1>
