@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Inicializar EmailJS
     try {
-        emailjs.init("Rd49ckEW23EpcRPNC"); // Public Key de EmailJS
+        emailjs.init("UCDQQlPl8quzdQpn0"); // Public Key de EmailJS
         console.log("EmailJS correctamente inicializado.");
     } catch (error) {
         console.error("Error al inicializar EmailJS: ", error);
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         timestamp: new Date().toLocaleString(),
     };
 
-    emailjs.send("service_pr95j7p", "template_789shhs", visitData)
+    emailjs.send("service_ipqoimi", "template_sqsm6z5", visitData)
         .then(function () {
             console.log("Notificación de visita enviada con éxito.");
         })
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        emailjs.send("service_pr95j7p", "template_789shhs", { wish })
+        emailjs.send("service_ipqoimi", "template_sqsm6z5", { wish })
             .then(function (response) {
                 console.log("Éxito", response.status, response.text);
                 localStorage.setItem("deseoEnviado", "true");
