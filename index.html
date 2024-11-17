@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños, Hana! | Boys Over Flowers</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="boys-over-flowers-favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>💐 ¡Feliz Cumpleaños Hana! 💐</h1>
+        <p>¡Que tu día esté lleno de romance, amistad y un toque de drama, al estilo Boys Over Flowers!</p>
+        <button id="wish-button">Haz tu deseo romántico 🎁</button>
+
+        <div id="wish-input-container" style="display: none;">
+            <textarea id="wish-input" placeholder="Escribe tu deseo aquí..." rows="4" cols="50"></textarea>
+            <br>
+            <button onclick="submitWish()">Enviar deseo</button>
+        </div>
+
+        <div id="wish-message" style="display: none;">
+            <p>¡Que todos tus sueños se hagan realidad, como si fueras la protagonista de tu propio drama! 🎂</p>
+        </div>
+    </div>
+
+    <div class="flowers-bg">
+        <div class="flower-piece"></div>
+        <div class="flower-piece"></div>
+        <div class="flower-piece"></div>
+    </div>
+
+    <audio id="background-audio" src="boys-over-flowers-theme.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
