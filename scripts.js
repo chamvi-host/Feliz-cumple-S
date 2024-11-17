@@ -1,66 +1,81 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Página completamente cargada. Iniciando script...");
+    console.log("Página completamente cargada. Iniciando verificaciones...");
 
-    emailjs.init("Rd49ckEW23EpcRPNC"); // Public Key de EmailJS
-
-    if (localStorage.getItem("deseoEnviado")) {
-        document.body.innerHTML = ""; // Borra todo el contenido del cuerpo
-        return;
+    // Verificar si EmailJS está correctamente inicializado
+    try {
+        emailjs.init("Rd49ckEW23EpcRPNC"); // Public Key de EmailJS
+        console.log("EmailJS correctamente inicializado.");
+    } catch (error) {
+        console.error("Error al inicializar EmailJS: ", error);
     }
 
-    function enviarCorreoBienvenida() {
-        emailjs.send("service_pr95j7p", "template_789shhs", {
-            to_name: "Admin",
-            from_name: "Página Web",
-            message: "Una persona ha ingresado a la página.",
-        })
-        .then(function (response) {
-            console.log("Correo de bienvenida enviado", response.status, response.text);
-        })
-        .catch(function (error) {
-            console.log("Error al enviar el correo de bienvenida:", error);
+    // Verificar si el botón y el contenedor de deseos están presentes en el DOM
+    const wishButton = document.getElementById("wish-button");
+    const wishInputContainer = document.getElementById("wish-input-container");
+    const backgroundAudio = document.getElementById("background-audio");
+
+    if (wishButton && wishInputContainer && backgroundAudio) {
+        console.log("Elementos del DOM encontrados: Botón, Contenedor de Deseos, y Audio.");
+    } else {
+        console.error("Faltan elementos del DOM: ", {
+            wishButton: wishButton ? "OK" : "NO",
+            wishInputContainer: wishInputContainer ? "OK" : "NO",
+            backgroundAudio: backgroundAudio ? "OK" : "NO"
         });
     }
 
-    enviarCorreoBienvenida();
+    // Verificar si los archivos CSS están cargados
+    const styles = document.styleSheets;
+    if (styles.length > 0) {
+        console.log("Archivos CSS cargados correctamente.");
+    } else {
+        console.error("No se encontraron archivos CSS.");
+    }
 
-    // Maneja el clic en el botón de "Haz tu deseo romántico"
-    document.getElementById("wish-button").addEventListener("click", function () {
-        document.getElementById("wish-input-container").style.display = "block";
-        this.style.display = "none";
-
-        // Reproduce la música de fondo
-        const audio = document.getElementById("background-audio");
-        audio.play()
-            .then(() => console.log("Música de fondo activada."))
-            .catch((error) => {
-                console.log("No se pudo reproducir el audio automáticamente:", error);
-                alert("Haz clic en la página para activar la música.");
-            });
+    // Verificar si el audio puede reproducirse
+    backgroundAudio.play().then(() => {
+        console.log("Audio cargado y puede reproducirse.");
+    }).catch((error) => {
+        console.error("Error al cargar el audio: ", error);
     });
 
-    // Enviar deseo
-    window.submitWish = function () {
-        const wish = document.getElementById("wish-input").value;
+    // Verificar si el botón de "Pide tu deseo" tiene el evento de clic
+    wishButton.addEventListener("click", function () {
+        console.log("Botón de 'Pide tu deseo' presionado.");
+        wishInputContainer.style.display = "block";  // Mostrar el contenedor de deseos
+        this.style.display = "none"; // Ocultar el botón
+        console.log("Contenedor de deseos mostrado y botón oculto.");
 
-        if (!wish.trim()) {
-            alert("Por favor, escribe un deseo válido.");
-            return;
-        }
+        // Reproducir el audio al hacer clic
+        backgroundAudio.play().catch((error) => {
+            console.log("No se pudo reproducir el audio:", error);
+            alert("Haz clic en la página para activar el audio.");
+        });
+    });
 
-        emailjs.send("service_pr95j7p", "template_789shhs", { wish })
-            .then(function (response) {
-                console.log("Éxito", response.status, response.text);
-                localStorage.setItem("deseoEnviado", "true");
-                document.body.innerHTML = `
-                    <div style="text-align: center; margin-top: 20%; color: #a52a2a;">
-                        <h1>🎉 ¡Gracias por tu deseo! 💐</h1>
-                        <p>Que todos tus sueños se hagan realidad, como si fueras la protagonista de tu propio drama.</p>
-                    </div>`;
-            })
-            .catch(function (error) {
-                console.log("Error", error);
-                alert("Hubo un problema al enviar tu deseo. Por favor intenta nuevamente.");
-            });
-    };
+    // Verificar si la función submitWish está correctamente definida
+    if (typeof window.submitWish === "function") {
+        console.log("Función submitWish está definida.");
+    } else {
+        console.error("Función submitWish no está definida.");
+    }
+
+    // Si todo está bien, muestra "OK" en la consola
+    console.log("Verificaciones completas. ¡Todo está funcionando correctamente!");
 });
+
+// Función para enviar el deseo a través de EmailJS
+window.submitWish = function () {
+    const wish = document.getElementById("wish-input").value;
+
+    if (!wish.trim()) {
+        alert("Por favor, escribe un deseo válido.");
+        return;
+    }
+
+    emailjs.send("service_pr95j7p", "template_789shhs", { wish })
+        .then(function (response) {
+            console.log("Éxito", response.status, response.text);
+            localStorage.setItem("deseoEnviado", "true");
+            document.body.innerHTML = `
+                <
